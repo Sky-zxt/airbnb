@@ -2,14 +2,17 @@ package com.upc.edu.cn.leinuo.airbnb.db.dao;
 
 import com.upc.edu.cn.leinuo.airbnb.db.dto.BlockDataDto;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.internal.verification.Times;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @SpringBootTest
 @Slf4j
@@ -18,18 +21,21 @@ public class BlockDataDaoTest {
 
     @Autowired
     private BlockDataDao blockDataDao;
-    @Test
-    public void test() throws Exception {
-        BlockDataDto blockDataDto = new BlockDataDto()
-                .setRequestToken("123456")
-                .setContent("这个房子非常好")
-                .setType("text")
-                ;
-        this.blockDataDao.save(blockDataDto);
-        List<BlockDataDto> blockDataDtoList = this.blockDataDao.findAll();
-        log.info(blockDataDtoList.toString());
-        Assert.assertNotEquals(blockDataDtoList.size(), 0);
-    }
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+
+    @Test
+    public void getAllByDateTimeBetween() throws ParseException {
+
+        Long start = sdf.parse("2019-03-01").getTime();
+        Long end = sdf.parse("2019-03-02").getTime();
+        System.out.println(start);
+        System.out.println(end);
+//        System.out.println(blockDataDao.findByDateTimeIsBetween(new Timestamp(start), new Timestamp(end)));
+//        Long a = 1551463000000L;
+//        Long b = 1551463002000L;
+//        System.out.println(blockDataDao.findByDateTimeIsBetween(new Timestamp(a), new Timestamp(b)));
+//        System.out.println(new Timestamp(a) + " " + new Timestamp(b));
+    }
 
 }

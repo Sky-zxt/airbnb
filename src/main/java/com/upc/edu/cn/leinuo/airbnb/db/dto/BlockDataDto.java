@@ -3,17 +3,15 @@ package com.upc.edu.cn.leinuo.airbnb.db.dto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Tables;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @Accessors(chain = true)
@@ -29,9 +27,9 @@ public class BlockDataDto {
     private String result = "block";
     private String label = "normal";
     private String details = "";
-    private String agentName = "";
+    private String agentName = "xinyushushi";
     @CreationTimestamp
-    private Date dateTime;
+    private Timestamp dateTime;
     @UpdateTimestamp
-    private Date updateTime;
+    private Timestamp updateTime;
 }
