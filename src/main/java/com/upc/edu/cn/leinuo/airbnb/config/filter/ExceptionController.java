@@ -15,9 +15,5 @@ public class ExceptionController {
         e.printStackTrace();
         return Result.error(e);
     }
-    @ExceptionHandler(value = SystemException.class)
-    public Result fail(SystemException e) {
-        return Result.fail(e);
-    }
 
 }

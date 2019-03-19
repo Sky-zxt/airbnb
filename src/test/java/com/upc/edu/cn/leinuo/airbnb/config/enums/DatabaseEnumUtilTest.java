@@ -31,8 +31,8 @@ public class DatabaseEnumUtilTest {
 
     @Test
     public void testFindEnumByStr() throws URISyntaxException {
-        BlockDataResultEnum pass = findEnumByStr(BlockDataResultEnum.class, "PASS");
-        assertEquals(pass.toString(), "PASS");
+        BlockDataResultEnum pass = findEnumByStr(BlockDataResultEnum.class, "SUCCESS");
+        assertEquals(pass.toString(), "SUCCESS");
 
         System.out.println(blockDataDao.findOneById(1));
         RequestEntity<BlockDataDto> requestEntity = RequestEntity

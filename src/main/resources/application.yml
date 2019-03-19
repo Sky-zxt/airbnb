@@ -1,7 +1,6 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://120.27.17.191:3660/airbnb_test?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8
     username: root
     password: Iias1234@
   jpa:
@@ -11,13 +10,17 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
-
     #  上传文件最大SIZE
   servlet:
     multipart:
       enabled: true
       max-file-size: 100MB
       max-request-size: 1024MB
+  profiles:
+    active: dev
 
-server:
-  port: 8089
+
+
+audit:
+  max-audit-level: 2
+  callback-url: "https://callbacks.airbnb.com/v1/external/callback/hanclean/manual/review"

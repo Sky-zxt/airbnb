@@ -1,6 +1,5 @@
 package com.upc.edu.cn.leinuo.airbnb.db.dto;
 
-import com.upc.edu.cn.leinuo.airbnb.config.enums.db.BlockDataResultEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,27 +12,25 @@ import java.sql.Timestamp;
 @Accessors(chain = true)
 @Table
 @Entity
-public class BlockDataDto {
+public class AuditDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String requestToken = "";
+    private Integer blockDataId;
 
-    private String content = "";
+    private String auditName = "NO_NAME";
 
-    private String type = "";
+    private Integer auditLevel = 1;
 
-    private String result = BlockDataResultEnum.NO_AUDIT.toString();
+    private String result = "NO_AUDIT";
 
-    private String label = "NORMAL";
+    private String detail = "";
 
-    private String details = "";
-
-    private String agentName = "xinyushushi";
+    private String type = "NORMAL";
 
     @CreationTimestamp
-    private Timestamp dateTime;
+    private Timestamp createTime;
 
     @UpdateTimestamp
     private Timestamp updateTime;

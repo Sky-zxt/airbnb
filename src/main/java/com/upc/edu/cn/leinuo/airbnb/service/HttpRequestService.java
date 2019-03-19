@@ -3,7 +3,7 @@ package com.upc.edu.cn.leinuo.airbnb.service;
 import com.upc.edu.cn.leinuo.airbnb.db.dao.BlockDataDao;
 import com.upc.edu.cn.leinuo.airbnb.db.dto.BlockDataDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +15,8 @@ import java.net.URISyntaxException;
 
 @Service
 public class HttpRequestService {
-    public static final String URL = "https://callbacks.airbnb.com/v1/external/callback/hanclean/manual/review";
-
+    @Value("${audit.callback-url}")
+    public String URL;
     @Autowired
     private BlockDataDao blockDataDao;
 

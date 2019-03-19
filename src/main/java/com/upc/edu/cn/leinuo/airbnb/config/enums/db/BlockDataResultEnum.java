@@ -2,8 +2,10 @@ package com.upc.edu.cn.leinuo.airbnb.config.enums.db;
 
 
 public enum BlockDataResultEnum {
-    PASS,
-    BLOCK
+    SUCCESS,
+    NO_AUDIT,
+    FAILED,
+    PENDING
     ;
 
 

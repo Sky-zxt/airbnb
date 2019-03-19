@@ -2,8 +2,6 @@ package com.upc.edu.cn.leinuo.airbnb.controller;
 
 import com.upc.edu.cn.leinuo.airbnb.config.Result;
 import com.upc.edu.cn.leinuo.airbnb.config.enums.DatabaseEnumUtil;
-import com.upc.edu.cn.leinuo.airbnb.config.enums.DatabaseValueEnum;
-import com.upc.edu.cn.leinuo.airbnb.config.enums.UserStatusEnum;
 import com.upc.edu.cn.leinuo.airbnb.config.enums.db.BlockDataResultEnum;
 import com.upc.edu.cn.leinuo.airbnb.config.exception.SystemException;
 import com.upc.edu.cn.leinuo.airbnb.db.dao.BlockDataDao;
@@ -13,7 +11,6 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
@@ -57,29 +54,8 @@ public class BlockDataController {
         System.out.println(startTime + " " + endTime);
         long start = sdf.parse(startTime).getTime();
         long end = sdf.parse(endTime).getTime();
-        System.out.println(new Timestamp(start) + " " + new Timestamp(end));
         return Result.success(blockDataDao.findByDateTimeIsBetween(new Timestamp(start), new Timestamp(end)));
     }
 
-    @PatchMapping("{id}/audit")
-    @ApiImplicitParams({
-            @ApiImplicitParam(required = true, name = "id", value = "1", paramType = "path", defaultValue = "1"),
-            @ApiImplicitParam(required = true, name = "result", value = "审核结果", paramType = "query", defaultValue = "PASS")
-    })
-    public Result audit(@PathVariable Integer id, @RequestParam String result) throws SystemException, URISyntaxException {
-        BlockDataDto blockDataDto = blockDataDao.findOneById(id);
-        if (blockDataDto == null) {
-            throw new SystemException(USER_ID_NOT_FOUND);
-        }
-        BlockDataResultEnum dbResult =  DatabaseEnumUtil.findEnumByStr(BlockDataResultEnum.class, result);
-        if (dbResult == null) {
-            throw new SystemException(BLOCK_DATA_DTO_VALUE_ERROR, "Your input is " + result);
-        }
-        blockDataDto.setResult(dbResult.toString());
-        HttpStatus httpStatus = httpRequestService.sendResult(blockDataDto).getStatusCode();
-        if (httpStatus != HttpStatus.OK) {
-            throw new SystemException(SEND_RESULT_ERROR, HttpRequestService.URL, httpStatus.toString());
-        }
-        return Result.success(blockDataDao.save(blockDataDto), "回调返回status " + httpStatus.toString());
-    }
+
 }
